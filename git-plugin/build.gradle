@@ -32,7 +32,7 @@ group = 'com.cvte.maxhub.plugin'
 description = 'Git commit checker.'
 version = '0.1.0'
 
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_1_8
 publishing {
     publications {
         maven(MavenPublication) {
