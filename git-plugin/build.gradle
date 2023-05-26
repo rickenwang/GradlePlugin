@@ -1,0 +1,56 @@
+apply plugin: 'groovy'
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'maven-publish'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // 因为使用的 Kotlin 需要需要添加 Kotlin 插件
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+//本地依赖插件时使用
+gradlePlugin {
+    plugins {
+        routerPlugin {
+            id = 'git-commit-checker'
+            implementationClass = 'com.cvte.maxhub.plugin.GitPlugin'
+        }
+    }
+}
+
+group = 'com.cvte.maxhub.plugin'
+description = 'Git commit checker.'
+version = '0.1.0-snapshot'
+
+sourceCompatibility = JavaVersion.VERSION_11
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //插件名称
+            artifactId = 'git-commit-checker'
+            from components.java
+        }
+    }
+    // 插件存储库
+    repositories {
+        maven {
+            // 生成的插件位置
+            url = uri('../repo')
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
+}
+
