@@ -1,4 +1,14 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'git-commit-checker'
+//
+//
+//gitCommit {
+//
+//    ruleFile = "${project.rootDir}/commit-msg"
+//    templateFile = "${project.rootDir}/commit-template"
+//    force = true
+//    gitRootDir = "${project.rootDir}/GitRoot"
+//}
 
 android {
     compileSdkVersion 26

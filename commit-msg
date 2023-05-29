@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# An example hook script to check the commit log message.
+# Called by "git commit" with one argument, the name of the file
+# that has the commit message.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.  The hook is allowed to edit the commit message file.
+#
+# To enable this hook, rename this file to "commit-msg".
+
+# Uncomment the below to add a Signed-off-by line to the message.
+# Doing this in a hook is a bad idea in general, but the prepare-commit-msg
+# hook is more suited to it.
+#
+# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# grep -qs "^$SOB" "$1" || echo "$SOB" >> "$1"
+
+# This example catches duplicate Signed-off-by lines.
+
+#test "" = "$(grep '^Signed-off-by: ' "$1" |
+#	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
+#	echo >&2 Duplicate Signed-off-by lines.
+#	exit 1
+#}
+
+if (egrep -q '^Merge' "$1" \
+    || egrep -q '^Revert' "$1" \
+    || ((egrep -q '^\[bugfix\]' "$1" \
+    || egrep -q '^\[feature\]' "$1" \
+    || egrep -q '^\[optimize\]' "$1" \
+    || egrep -q '^\[refactor\]' "$1" \
+    || egrep -q '^\[doc\]' "$1"  \
+    || egrep -q '^\[test\]' "$1" \
+    || egrep -q '^\[other\]' "$1" ) \
+    && egrep -q '^\[jira\]' "$1" \
+    && egrep -q '^\[inf\]' "$1"));then
+    exit 0
+else
+    echo "自定义"
+    echo "本次提交未遵守 commit 规范："
+    cat "$1"
+    echo
+    echo "请按照以下格式提交："
+    echo "[bugfix/feature/optimize/refactor/doc/test/other] 问题描述"
+    echo "[jira] jira 链接，没有则填 none"
+    echo "[inf] 影响范围，必填"
+    echo
+    exit 1
+fi

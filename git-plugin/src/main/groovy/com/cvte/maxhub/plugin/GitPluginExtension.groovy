@@ -7,8 +7,8 @@ import org.gradle.api.provider.Property;
  */
 public interface GitPluginExtension {
 
-    Property<String> getGitRuleFile()
-    Property<String> getTemplateFilePath()
+    Property<String> getRuleFile()
+    Property<String> getTemplateFile()
     Property<String> getGitRootDir()
     Property<Boolean> getForce()
 }

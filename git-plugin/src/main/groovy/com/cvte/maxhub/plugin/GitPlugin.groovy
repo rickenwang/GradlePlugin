@@ -16,15 +16,28 @@ public class GitPlugin implements Plugin<Project> {
 
     void apply(Project project) {
 
-        parseCustomConfigs(project)
-        if (!shouldSkip()) {
-            project.task("gitCommitCheck") {
-                doLast {
+        def exts = createCustomExtends(project)
+//        if (!shouldSkip()) {
+//            project.task("gitCommitCheck") {
+//                doLast {
+//
+//                    parseExtension(exts)
+//
+//                    execute(project)
+//                }
+//            }
+//            project.tasks.findByName("preBuild").dependsOn("gitCommitCheck")
+//        }
+
+        project.task("gitCommitCheck") {
+            doLast {
+                parseExtension(project, exts)
+                if (!shouldSkip()) {
                     execute(project)
                 }
             }
-            project.tasks.findByName("preBuild").dependsOn("gitCommitCheck")
         }
+        project.tasks.findByName("preBuild").dependsOn("gitCommitCheck")
     }
 
     private void execute(Project project) {
@@ -47,12 +60,14 @@ public class GitPlugin implements Plugin<Project> {
         }
     }
 
-    private void parseCustomConfigs(Project project) {
+    private GitPluginExtension createCustomExtends(Project project) {
 
-        def extension = project.extensions.create('gitCommit', GitPluginExtension)
+        return project.extensions.create('gitCommit', GitPluginExtension)
+    }
 
-        ruleFilePath = extension.gitRuleFile.getOrNull()
-        templateFilePath = extension.templateFilePath.getOrNull()
+    private void parseExtension(Project project, GitPluginExtension extension) {
+        ruleFilePath = extension.ruleFile.getOrNull()
+        templateFilePath = extension.templateFile.getOrNull()
         gitRootDir = extension.gitRootDir.getOrNull()
         force = extension.force.getOrElse(false)
         if (gitRootDir == null) {
@@ -63,7 +78,6 @@ public class GitPlugin implements Plugin<Project> {
         println("GitPlugin: git root dir is $gitRootDir")
         println("GitPlugin: force is $force")
     }
-
 
     private String getGitHookDirPath() {
         return "$gitRootDir/.git/hooks"
@@ -94,7 +108,7 @@ public class GitPlugin implements Plugin<Project> {
         File ruleFile = project.file(ruleFilePath)
 
         if (!ruleFile.exists()) {
-            project.logger.error("GitPlugin: $customRuleFilePath is not exist")
+            project.logger.error("GitPlugin: $ruleFilePath is not exist")
             return false
         }
 
@@ -160,7 +174,7 @@ public class GitPlugin implements Plugin<Project> {
         }
 
         if (!new File(templateFilePath).exists()) {
-            project.logger.error("GitPlugin: $customTemplateFilePath is not exist")
+            project.logger.error("GitPlugin: $templateFilePath is not exist")
             return false
         }
 
