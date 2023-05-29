@@ -3,12 +3,12 @@ package com.cvte.maxhub.plugin
 /**
  * created by wangkang on 2023/5/26
  */
-class FileCreator {
+class FileCreator  {
 
-    String mContent
-    String mOutputDirectory
-    String mFileName
-    boolean override = false
+    private String mContent
+    private String mOutputDirectory
+    private String mFileName
+    private boolean override = false
 
     public FileCreator(String outputDirectory, String fileName, String content) {
         mContent = content

@@ -2,17 +2,6 @@ apply plugin: 'groovy'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'maven-publish'
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        // 因为使用的 Kotlin 需要需要添加 Kotlin 插件
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
-    }
-}
-
 repositories {
     google()
     mavenCentral()
@@ -48,9 +37,5 @@ publishing {
             url = uri('../repo')
         }
     }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
 }
 
