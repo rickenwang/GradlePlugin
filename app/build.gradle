@@ -10,23 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
-    signingConfigs {
-        release {
-            storeFile file("$System.env.KEYSTORE_PATH")
-            storePassword "$System.env.STOREPASS"
-            keyAlias "$System.env.ALIAS"
-            keyPassword "$System.env.KEYPASS"
-        }
-    }
-
-    buildTypes {
-        release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-    }
-
 }
 
 dependencies {
