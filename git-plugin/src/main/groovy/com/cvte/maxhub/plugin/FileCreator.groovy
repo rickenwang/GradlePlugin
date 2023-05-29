@@ -29,11 +29,5 @@ class FileCreator {
     String getFilePath() {
         return "$mOutputDirectory/$mFileName"
     }
-
-    static void main(String[] args) {
-        FileCreator fileCreator = new FileCreator("/Users/davoswang/Develop/Github/GradlePlugin/test2", "commit-template", FileContents.GIT_TEMPLATE_CONTENT)
-        fileCreator.override = true
-        fileCreator.create()
-    }
 }
 
