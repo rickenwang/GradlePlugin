@@ -8,11 +8,11 @@ gitCommit {
 
     // gitRootDir = "${project.rootDir}/GitRoot"
 
-//    rules {
-//        rule "bugfix,feature,hotfix", "hint1"
-//        rule "jira", "hint2"
-//        rule "influence", "可选"
-//    }
+    rules {
+        rule "bugfix,feature,hotfix", "hint1"
+        rule "jira", "hint2"
+        rule "influence", "可选"
+    }
 
 }
 // BaseAppModuleExtension_Decorated
