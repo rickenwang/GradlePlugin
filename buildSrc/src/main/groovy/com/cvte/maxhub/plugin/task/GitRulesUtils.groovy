@@ -10,6 +10,9 @@ public class GitRulesUtils {
     // [jira] none
     // [inf] none
     public static String commitTemplateContent(List<GitRule> rules) {
+        if (rules == null || rules.isEmpty()) {
+            return ""
+        }
         StringBuilder sb = new StringBuilder()
         for (GitRule rule: rules) {
             sb.append("[${rule.titles.split(",")[0]}] ${rule.hint}\n")
@@ -18,6 +21,10 @@ public class GitRulesUtils {
     }
 
     public static String commitMsgContent(List<GitRule> rules) {
+        if (rules == null || rules.isEmpty()) {
+            return ""
+        }
+
         StringBuilder sb = new StringBuilder()
         sb.append("if (egrep -q '^Merge' \"\$1\"")
         sb.append(" || egrep -q '^Revert' \"\$1\"")
@@ -40,9 +47,9 @@ public class GitRulesUtils {
 
         sb.append("else\n")
         sb.append("    echo \"本次提交未遵守 commit 规范：\"\n")
-        // sb.append("    cat \"\$1\"\n")
-        // sb.append("    echo \" \"\n")
-        sb.append("    请按照以下格式提交：\n")
+        sb.append("    cat \"\$1\"\n")
+        sb.append("    echo \" \"\n")
+        sb.append("    echo \"请按照以下格式提交：\"\n")
         for (GitRule rule: rules) {
             sb.append("    echo \"[${rule.titles}] ${rule.hint}\"\n")
         }

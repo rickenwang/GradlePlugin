@@ -40,13 +40,10 @@ abstract class AddGitRulesTask extends DefaultTask {
         for (GitRule rule: gitRules.get()) {
             println("gitRule: ${rule}")
         }
-
         List<GitRule> rules = gitRules.get()
-        if (rules == null || rules.isEmpty()) {
-            return
-        }
 
         try {
+
             File commitMsgFile = gitRulesFile.get()
             new FileCreator(commitMsgFile.getParent(), commitMsgFile.name,
                     GitRulesUtils.commitMsgContent(rules)).create()
