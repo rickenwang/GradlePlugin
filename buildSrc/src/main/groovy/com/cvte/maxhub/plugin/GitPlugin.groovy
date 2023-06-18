@@ -17,18 +17,6 @@ public class GitPlugin implements Plugin<Project> {
     void apply(Project project) {
 
         def exts = createCustomExtends(project)
-//        if (!shouldSkip()) {
-//            project.task("gitCommitCheck") {
-//                doLast {
-//
-//                    parseExtension(exts)
-//
-//                    execute(project)
-//                }
-//            }
-//            project.tasks.findByName("preBuild").dependsOn("gitCommitCheck")
-//        }
-
         project.task("gitCommitCheck") {
             doLast {
                 parseExtension(project, exts)
