@@ -1,6 +1,9 @@
-package com.cvte.maxhub.plugin;
+package com.cvte.maxhub.plugin
 
-import org.gradle.api.provider.Property;
+import org.gradle.api.Action
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Nested;
 
 /**
  * gitCommitter {
@@ -15,12 +18,17 @@ import org.gradle.api.provider.Property;
  *
  * created by wangkang on 2023/5/26
  */
-public interface GitPluginExtension {
+abstract public class GitPluginExtension {
 
-    Property<String> getRuleFile()
-    Property<String> getTemplateFile()
-    Property<String> getGitRootDir()
-    Property<Boolean> getForce()
+    abstract Property<String> getGitRootDir()
 
-    Property<List<List>> getRules()
+    private GitRules rules = new GitRules()
+
+    public void rules(Action<GitRules> action) {
+        action.execute(rules)
+    }
+
+    public List<GitRule> getRuleList() {
+        return rules.rules
+    }
 }

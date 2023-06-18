@@ -1,7 +1,8 @@
-package com.cvte.maxhub.plugin;
+package com.cvte.maxhub.plugin
 
+import com.cvte.maxhub.plugin.task.AddGitRulesTask;
 import org.gradle.api.Plugin;
-import org.gradle.api.Project;
+import org.gradle.api.Project
 
 /**
  * created by wangkang on 2023/5/26
@@ -9,83 +10,52 @@ import org.gradle.api.Project;
 public class GitPlugin implements Plugin<Project> {
 
     final String commitRuleFileName = "commit-msg"
-    String ruleFilePath = null
-    String templateFilePath = null
-    String gitRootDir = null
-    boolean force = false
+    final String templateFileName = "template"
+    String mGitRootDir = null
 
     void apply(Project project) {
 
         def exts = createCustomExtends(project)
-        project.task("gitCommitCheck") {
-            doLast {
-                parseExtension(project, exts)
-                if (!shouldSkip()) {
-                    execute(project)
-                }
-            }
-        }
-        project.tasks.findByName("preBuild").dependsOn("gitCommitCheck")
-    }
 
-    private void execute(Project project) {
-        boolean applyRuleExist = applyRuleForCustom(project)
-        if (!applyRuleExist) {
-            applyRuleExist = applyRuleForDefault()
+        project.tasks.register("addGitRules", AddGitRulesTask) { task ->
+            parseExtension(project, exts)
+            task.gitRootDir = mGitRootDir
+            task.gitRulesFile = new File(getGitRuleFilePath())
+            task.gitTemplateFile = new File(getGitTemplateFilePath())
+            task.gitRules.addAll(exts.ruleList)
         }
 
-        boolean applyRuleExecutable = applyRuleExecutable()
-
-        boolean applyTemplate = applyTemplateCustom(project)
-        if (!applyTemplate) {
-            applyTemplate = applyTemplateDefault(project)
-        }
-
-        if (applyRuleExist && applyRuleExecutable && applyTemplate) {
-            println("GitPlugin: execute success")
-        } else {
-            project.logger.error("GitPlugin: execute failed, applyRuleExist is $applyRuleExist, applyRuleExecutable is $applyRuleExecutable, applyTemplate is $applyTemplate")
-        }
+        project.tasks.findByName("preBuild").dependsOn("addGitRules")
     }
 
     private GitPluginExtension createCustomExtends(Project project) {
-
         return project.extensions.create('gitCommit', GitPluginExtension)
     }
 
     private void parseExtension(Project project, GitPluginExtension extension) {
-        ruleFilePath = extension.ruleFile.getOrNull()
-        templateFilePath = extension.templateFile.getOrNull()
-        gitRootDir = extension.gitRootDir.getOrNull()
-        force = extension.force.getOrElse(false)
-        if (gitRootDir == null) {
-            gitRootDir = project.rootDir
+        mGitRootDir = extension.gitRootDir.getOrNull()
+        if (mGitRootDir == null) {
+            mGitRootDir = project.rootDir
         }
-        println("GitPlugin: rule file path is $ruleFilePath")
-        println("GitPlugin: template file path is $templateFilePath")
-        println("GitPlugin: git root dir is $gitRootDir")
-        println("GitPlugin: force is $force")
+        println("GitPlugin: git root dir is $mGitRootDir")
     }
 
     private String getGitHookDirPath() {
-        return "$gitRootDir/.git/hooks"
+        return "$mGitRootDir/.git/hooks"
     }
 
     private String getGitTemplateDirPath() {
-        return "$gitRootDir/.git/template"
+        return "$mGitRootDir/.git/template"
     }
 
     private String getGitRuleFilePath() {
         return "${getGitHookDirPath()}/$commitRuleFileName"
     }
 
-    private boolean shouldSkip() {
-        if (new File(getGitRuleFilePath()).exists() && !force) {
-            println("GitPlugin: commit-msg file already exists in .git/hooks directory, so skip the execution of these tasks!")
-            return true
-        }
-        return false
+    private String getGitTemplateFilePath() {
+        return "${getGitTemplateDirPath()}/$templateFileName"
     }
+
 
     private boolean applyRuleForCustom(Project project) {
 

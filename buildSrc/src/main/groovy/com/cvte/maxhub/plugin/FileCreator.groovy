@@ -8,7 +8,7 @@ class FileCreator  {
     private String mContent
     private String mOutputDirectory
     private String mFileName
-    private boolean override = false
+    private boolean override = true
 
     public FileCreator(String outputDirectory, String fileName, String content) {
         mContent = content

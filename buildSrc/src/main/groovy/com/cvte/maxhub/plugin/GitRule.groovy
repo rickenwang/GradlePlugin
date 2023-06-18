@@ -4,25 +4,23 @@ import org.gradle.api.Action
 import org.gradle.api.provider.Property
 
 /**
- *
- * [bugfix] 我是自定义
- * [jira] none
- * [inf] none
+ * [title] this is hint
  *
  * created by wangkang on 2023/5/26
  */
-abstract public class GitRules {
+public class GitRule implements Serializable {
 
-    abstract Property<String> getRuleFile()
-    abstract Property<String> getTemplateFile()
-    abstract Property<String> getGitRootDir()
-    abstract Property<Boolean> getForce()
+    String titles = "";
 
-//    public void rule(String title, String hint) {
-//        println("GitPlugin: add rule ${title} ${hint}")
-//    }
+    String hint = ""
 
-    public void rule(Action<? super String> action) {
-        // action.execute(getCustomData());
+    GitRule(String titles, String hint) {
+        this.titles = titles
+        this.hint = hint
+    }
+
+    @Override
+    String toString() {
+        return "[${titles}] $hint"
     }
 }

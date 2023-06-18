@@ -25,7 +25,8 @@
 
 if (egrep -q '^Merge' "$1" \
     || egrep -q '^Revert' "$1" \
-    || ((egrep -q '^\[bugfix\]' "$1" \
+    || ( \
+    (egrep -q '^\[bugfix\]' "$1" \
     || egrep -q '^\[feature\]' "$1" \
     || egrep -q '^\[optimize\]' "$1" \
     || egrep -q '^\[refactor\]' "$1" \
@@ -33,7 +34,8 @@ if (egrep -q '^Merge' "$1" \
     || egrep -q '^\[test\]' "$1" \
     || egrep -q '^\[other\]' "$1" ) \
     && egrep -q '^\[jira\]' "$1" \
-    && egrep -q '^\[inf\]' "$1"));then
+    && egrep -q '^\[inf\]' "$1" \
+    ));then
     exit 0
 else
     echo "自定义"

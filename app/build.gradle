@@ -1,15 +1,21 @@
-apply plugin: 'com.android.application'
-//apply plugin: 'git-commit-checker'
-//
-//
-//gitCommit {
-//
-//    ruleFile = "${project.rootDir}/commit-msg"
-//    templateFile = "${project.rootDir}/commit-template"
-//    force = true
-//    gitRootDir = "${project.rootDir}/GitRoot"
-//}
+import com.cvte.maxhub.plugin.GitRules
 
+apply plugin: 'com.android.application'
+apply plugin: 'git-commit-checker'
+//
+//
+gitCommit {
+
+    // gitRootDir = "${project.rootDir}/GitRoot"
+
+    rules {
+        rule "bugfix,feature,hotfix", "hint1"
+        rule "jira", "hint2"
+        rule "influence", "可选"
+    }
+
+}
+// BaseAppModuleExtension_Decorated
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -19,6 +25,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        exclude "**/test1-lib.so"
     }
 }
 
