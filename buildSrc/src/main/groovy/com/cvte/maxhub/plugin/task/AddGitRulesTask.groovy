@@ -35,8 +35,6 @@ abstract class AddGitRulesTask extends DefaultTask {
 
         println("GitPlugin: start to AddGitRulesTask")
         println("gitRootDir: ${gitRootDir.get()}")
-        // println("gitRulesFile: ${gitRulesFile.get()}")
-        // println("gitTemplateFile: ${gitTemplateFile.get()}")
         for (GitRule rule: gitRules.get()) {
             println("gitRule: ${rule}")
         }

@@ -1,7 +1,7 @@
 package com.cvte.maxhub.plugin
 
-import org.gradle.api.Action
-import org.gradle.api.provider.Property
+import com.cvte.maxhub.plugin.task.GitRulesUtils
+
 
 /**
  * [title] this is hint
@@ -10,17 +10,22 @@ import org.gradle.api.provider.Property
  */
 public class GitRule implements Serializable {
 
-    String titles = "";
+    //
+    private String[] titles = null
 
-    String hint = ""
+    private String hint = ""
 
     GitRule(String titles, String hint) {
-        this.titles = titles
+        String[] titleArr = titles.split(",")
+        this.titles = new String[titleArr.size()]
+        for (int i = 0; i < this.titles.size(); i++) {
+            this.titles[i] = titleArr[i].trim()
+        }
         this.hint = hint
     }
 
     @Override
     String toString() {
-        return "[${titles}] $hint"
+        return "[${GitRulesUtils.mergeStringArr(titles)}] $hint"
     }
 }

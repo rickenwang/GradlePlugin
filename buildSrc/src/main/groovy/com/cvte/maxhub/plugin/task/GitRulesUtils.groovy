@@ -15,7 +15,7 @@ public class GitRulesUtils {
         }
         StringBuilder sb = new StringBuilder()
         for (GitRule rule: rules) {
-            sb.append("[${rule.titles.split(",")[0].trim()}] ${rule.hint}\n")
+            sb.append("[${rule.titles[0]}] ${rule.hint}\n")
         }
         return sb.toString()
     }
@@ -36,7 +36,7 @@ public class GitRulesUtils {
             if (!isFirst) {
                 sb.append(" && ")
             }
-            sb.append(grepItems(rule.titles.split(",")))
+            sb.append(grepItems(rule.titles))
             if (isLast) {
                 sb.append(")")
             }
@@ -51,7 +51,7 @@ public class GitRulesUtils {
         sb.append("    echo \" \"\n")
         sb.append("    echo \"请按照以下格式提交：\"\n")
         for (GitRule rule: rules) {
-            sb.append("    echo \"[${rule.titles}] ${rule.hint}\"\n")
+            sb.append("    echo \"[${mergeStringArr(rule.titles)}] ${rule.hint}\"\n")
         }
         sb.append("    exit 1\n")
         sb.append("fi")
@@ -72,7 +72,7 @@ public class GitRulesUtils {
                 sb.append(" || ")
             }
 
-            sb.append(grepItem(title.trim()))
+            sb.append(grepItem(title))
 
             if (isLast) {
                 sb.append(" )")
@@ -85,6 +85,24 @@ public class GitRulesUtils {
 
     private static String grepItem(String title) {
         return "egrep -q '^\\[${title}\\]' \"\$1\""
+    }
+
+    public static String mergeStringArr(String[] titles) {
+        if (titles == null) {
+            return ""
+        }
+        StringBuilder sb = new StringBuilder();
+        int counter = 0
+        for (int i = 0; i < titles.length; i++) {
+            boolean isLast = counter == titles.length - 1
+            sb.append(titles[i])
+            if (!isLast) {
+                sb.append("/")
+            }
+            counter++
+        }
+
+        return sb.toString()
     }
 
 }
