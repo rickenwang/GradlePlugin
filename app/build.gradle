@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'git-commit-checker'
-//
-//
+//apply plugin: 'git-commit-checker'
+////
+////
 //gitCommit {
 //
 //    gitRootDir = "${project.rootDir}"
