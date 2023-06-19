@@ -15,7 +15,7 @@ public class GitRulesUtils {
         }
         StringBuilder sb = new StringBuilder()
         for (GitRule rule: rules) {
-            sb.append("[${rule.titles.split(",")[0]}] ${rule.hint}\n")
+            sb.append("[${rule.titles.split(",")[0].trim()}] ${rule.hint}\n")
         }
         return sb.toString()
     }
@@ -72,7 +72,7 @@ public class GitRulesUtils {
                 sb.append(" || ")
             }
 
-            sb.append(grepItem(title))
+            sb.append(grepItem(title.trim()))
 
             if (isLast) {
                 sb.append(" )")

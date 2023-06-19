@@ -1,19 +1,16 @@
-import com.cvte.maxhub.plugin.GitRules
-
 apply plugin: 'com.android.application'
 apply plugin: 'git-commit-checker'
 //
 //
 gitCommit {
 
-    // gitRootDir = "${project.rootDir}/GitRoot"
+    gitRootDir = "${project.rootDir}"
 
     rules {
         rule "bugfix,feature,hotfix", "hint1"
         rule "jira", "hint2"
         rule "influence", "可选"
     }
-
 }
 // BaseAppModuleExtension_Decorated
 android {

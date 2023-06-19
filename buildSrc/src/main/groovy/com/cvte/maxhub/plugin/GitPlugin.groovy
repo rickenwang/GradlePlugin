@@ -37,7 +37,6 @@ public class GitPlugin implements Plugin<Project> {
         if (mGitRootDir == null) {
             mGitRootDir = project.rootDir
         }
-        println("GitPlugin: git root dir is $mGitRootDir")
     }
 
     private String getGitHookDirPath() {
