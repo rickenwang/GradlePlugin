@@ -7,8 +7,8 @@ gitCommit {
     gitRootDir = "${project.rootDir}"
 
     rules {
-        rule "bugfix ,feature,hotfix", "这时我的"
-        rule "jira ", "hint2"
+        rule "bugfixbug ,feature,hotfix", "这时我的"
+        rule "jira ", "hint2", true
         rule "influence", "可选"
     }
 }

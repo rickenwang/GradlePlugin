@@ -1,4 +1,4 @@
 rootProject.name = "GradlePlugin"
 
 include ':app'
-include 'git-plugin'
+// include 'git-plugin'

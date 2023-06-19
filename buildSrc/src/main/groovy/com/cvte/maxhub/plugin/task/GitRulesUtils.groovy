@@ -21,7 +21,21 @@ public class GitRulesUtils {
     }
 
     public static String commitMsgContent(List<GitRule> rules) {
+
         if (rules == null || rules.isEmpty()) {
+            return ""
+        }
+
+        Iterator<GitRule> iterator = rules.iterator()
+        List<GitRule> newRules = new LinkedList<>()
+        while (iterator.hasNext()) {
+            GitRule rule = iterator.next()
+            if (!rule.ignore) {
+                newRules.add(rule)
+            }
+        }
+
+        if (newRules == null || newRules.isEmpty()) {
             return ""
         }
 
@@ -30,9 +44,10 @@ public class GitRulesUtils {
         sb.append(" || egrep -q '^Revert' \"\$1\"")
         sb.append(" || (")
         int counter = 0
-        for (GitRule rule: rules) {
+
+        for (GitRule rule: newRules) {
             boolean isFirst = counter == 0
-            boolean isLast = counter == rules.size() - 1
+            boolean isLast = counter == newRules.size() - 1
             if (!isFirst) {
                 sb.append(" && ")
             }
@@ -50,7 +65,7 @@ public class GitRulesUtils {
         sb.append("    cat \"\$1\"\n")
         sb.append("    echo \" \"\n")
         sb.append("    echo \"请按照以下格式提交：\"\n")
-        for (GitRule rule: rules) {
+        for (GitRule rule: newRules) {
             sb.append("    echo \"[${mergeStringArr(rule.titles)}] ${rule.hint}\"\n")
         }
         sb.append("    exit 1\n")

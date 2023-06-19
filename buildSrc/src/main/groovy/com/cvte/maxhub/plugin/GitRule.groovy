@@ -15,6 +15,8 @@ public class GitRule implements Serializable {
 
     private String hint = ""
 
+    boolean ignore = false
+
     GitRule(String titles, String hint) {
         String[] titleArr = titles.split(",")
         this.titles = new String[titleArr.size()]
@@ -26,6 +28,6 @@ public class GitRule implements Serializable {
 
     @Override
     String toString() {
-        return "[${GitRulesUtils.mergeStringArr(titles)}] $hint"
+        return "[${GitRulesUtils.mergeStringArr(titles)}] $hint $ignore"
     }
 }
