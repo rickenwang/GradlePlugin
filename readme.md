@@ -20,10 +20,10 @@
 在根项目下的 build.gradle 文件下添加：
 ```
 allprojects {
-repositories {
-...
-maven { url 'https://jitpack.io' }
-}
+    repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+    }
 
     dependencies {
         ...
