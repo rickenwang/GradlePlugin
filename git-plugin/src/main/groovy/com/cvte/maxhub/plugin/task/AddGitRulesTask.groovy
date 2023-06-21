@@ -46,6 +46,11 @@ abstract class AddGitRulesTask extends DefaultTask {
             new FileCreator(commitMsgFile.getParent(), commitMsgFile.name,
                     GitRulesUtils.commitMsgContent(rules)).create()
 
+            // 必须设置可执行权限
+            project.exec {
+                commandLine 'chmod', '+x', "${commitMsgFile.getAbsolutePath()}"
+            }
+
             File commitTemplateFile = gitTemplateFile.get()
             new FileCreator(commitTemplateFile.getParent(), commitTemplateFile.name,
                     GitRulesUtils.commitTemplateContent(rules)).create()

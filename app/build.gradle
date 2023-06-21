@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
- apply plugin: 'git-commit-checker'
+apply plugin: 'git-commit-checker'
 
 
 gitCommit {
@@ -7,7 +7,7 @@ gitCommit {
     gitRootDir = "${project.rootDir}"
 
     rules {
-        rule "bugfixbug ,feature,hotfix", "这时我的"
+        rule "bugfix,feature,hotfix", "这时我的"
         rule "jira ", "hint2", true
         rule "influence", "可选"
     }
