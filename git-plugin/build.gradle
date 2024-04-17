@@ -12,12 +12,12 @@ gradlePlugin {
     plugins {
         routerPlugin {
             id = 'git-commit-checker'
-            implementationClass = 'com.cvte.maxhub.plugin.GitPlugin'
+            implementationClass = 'com.wk.gradle.plugin.GitPlugin'
         }
     }
 }
 
-group = 'com.cvte.maxhub.plugin'
+group = 'com.wk.gradle.plugin'
 description = 'Git commit checker.'
 version = '0.1.0'
 

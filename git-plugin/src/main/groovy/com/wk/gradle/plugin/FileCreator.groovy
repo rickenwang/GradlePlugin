@@ -1,4 +1,4 @@
-package com.cvte.maxhub.plugin
+package com.wk.gradle.plugin
 
 /**
  * created by wangkang on 2023/5/26

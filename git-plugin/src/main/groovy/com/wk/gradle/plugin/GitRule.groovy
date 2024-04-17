@@ -1,6 +1,6 @@
-package com.cvte.maxhub.plugin
+package com.wk.gradle.plugin
 
-import com.cvte.maxhub.plugin.task.GitRulesUtils
+import com.wk.gradle.plugin.task.GitRulesUtils
 
 
 /**

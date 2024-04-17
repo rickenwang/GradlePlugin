@@ -1,8 +1,8 @@
-package com.cvte.maxhub.plugin.task
+package com.wk.gradle.plugin.task
 
-import com.cvte.maxhub.plugin.FileCreator
-import com.cvte.maxhub.plugin.GitRule
-import com.cvte.maxhub.plugin.GitRules
+import com.wk.gradle.plugin.FileCreator
+import com.wk.gradle.plugin.GitRule
+import com.wk.gradle.plugin.GitRules
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.Input

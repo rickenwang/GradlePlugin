@@ -1,4 +1,4 @@
-package com.cvte.maxhub.plugin
+package com.wk.gradle.plugin
 
 import org.gradle.api.Action
 import org.gradle.api.provider.Property

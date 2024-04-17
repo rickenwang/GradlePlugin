@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
-apply plugin: 'git-commit-checker'
+// apply plugin: 'git-commit-checker'
 
 
-gitCommit {
-
-    gitRootDir = "${project.rootDir}"
-
-    rules {
-        rule "bugfix,feature,hotfix", "这时我的"
-        rule "jira ", "hint2", true
-        rule "influence", "可选"
-    }
-}
+//gitCommit {
+//
+//    gitRootDir = "${project.rootDir}"
+//
+//    rules {
+//        rule "bugfix,feature,hotfix", "这时我的"
+//        rule "jira ", "hint2", true
+//        rule "influence", "可选"
+//    }
+//}
 // BaseAppModuleExtension_Decorated
 android {
     compileSdkVersion 26
